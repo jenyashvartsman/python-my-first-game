@@ -2,15 +2,18 @@ import pygame
 import random
 import sys
 
-# Initialize Pygame
-pygame.init()
-screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Monkey Banana Game")
+# Window
+WINDOWED_SIZE = (800, 600)
 
 # Colors
 BROWN = (139, 69, 19)
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
+
+# Initialize Pygame
+pygame.init()
+screen = pygame.display.set_mode(WINDOWED_SIZE)
+pygame.display.set_caption("Monkey Banana Game")
 
 # Fonts
 font = pygame.font.SysFont(None, 36)
