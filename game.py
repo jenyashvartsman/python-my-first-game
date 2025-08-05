@@ -7,9 +7,9 @@ WINDOWED_SIZE = (800, 600)
 SCORE_BAR_HEIGHT = 50
 TREE_SIZE = 60
 NUM_TREES = 5
-MONKEY_SIZE = 50
+MONKEY_SIZE = 35
 MONKEY_SPEED = 5
-BANANA_RADIUS = 20
+BANANA_RADIUS = 15
 
 BROWN = (139, 69, 19)
 YELLOW = (255, 255, 0)
@@ -22,6 +22,16 @@ is_fullscreen = False
 screen = pygame.display.set_mode(WINDOWED_SIZE, pygame.RESIZABLE)
 pygame.display.set_caption("Monkey Banana Game")
 font = pygame.font.SysFont(None, 36)
+
+# Load images
+monkey_img = pygame.image.load("images/monkey.png").convert_alpha()
+monkey_img = pygame.transform.scale(monkey_img, (MONKEY_SIZE, MONKEY_SIZE))
+
+tree_img = pygame.image.load("images/tree.png").convert_alpha()
+tree_img = pygame.transform.scale(tree_img, (TREE_SIZE, TREE_SIZE))
+
+banana_img = pygame.image.load("images/banana.png").convert_alpha()
+banana_img = pygame.transform.scale(banana_img, (BANANA_RADIUS * 2, BANANA_RADIUS * 2))
 
 # Obstacles (trees)
 obstacles = []
@@ -103,17 +113,16 @@ while running:
             monkey_rect = pygame.Rect(monkey_x, monkey_y, MONKEY_SIZE, MONKEY_SIZE)
             break
 
-    # Draw obstacles
+    # Draw obstacles (trees)
     for obstacle in obstacles:
-        pygame.draw.rect(screen, GREEN, obstacle)
+        screen.blit(tree_img, (obstacle.x, obstacle.y))
 
     # Draw monkey
-    pygame.draw.rect(screen, BROWN, monkey_rect)
+    screen.blit(monkey_img, (monkey_rect.x, monkey_rect.y))
 
     # Draw banana
-    banana_center = (banana_x + BANANA_RADIUS, banana_y + BANANA_RADIUS)
+    screen.blit(banana_img, (banana_x, banana_y))
     banana_rect = pygame.Rect(banana_x, banana_y, BANANA_RADIUS * 2, BANANA_RADIUS * 2)
-    pygame.draw.circle(screen, YELLOW, banana_center, BANANA_RADIUS)
 
     # Eat banana
     if monkey_rect.colliderect(banana_rect):
